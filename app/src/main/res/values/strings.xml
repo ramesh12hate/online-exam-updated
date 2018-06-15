@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Embibe</string>
+    <string name="embibe_helps_you_score_higher">Embibe helps you\n Score Higher!</string>
+    <string name="app_logo_goes_here">App Logo Goes Here</string>
+    <string name="sign_in_text">Please Sign-in and access your\n account</string>
+    <string name="email_or_number">Email or Number</string>
+    <string name="your_password">Your Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forget_password">Forget Password ?</string>
+</resources>

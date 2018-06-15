@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4A8FB6</color>
+    <color name="colorPrimaryDark">#FF1275AE</color>
+    <color name="colorAccent">#5d8fab</color>
+    <color name="colorPrimaryTransparency">#cc4a8fb6</color>
+    <color name="gray">#ffe6e6e6</color>
+    <color name="login_text_gray">#4A4A4A</color>
+    <color name="sign_in_btn_blue">#69B6E4</color>
+    <color name="ripple_white">#fcfcfc</color>
+</resources>
