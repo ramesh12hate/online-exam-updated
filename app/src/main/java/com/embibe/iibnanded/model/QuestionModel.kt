@@ -1,7 +1,10 @@
 package com.embibe.iibnanded.model
 
-data class QuestionModel(val id: Int = 0, val optionA: String = "",
-                         val optionB: String = "",
-                         val optionC: String = "",
-                         val optionD: String = "",
-                         val answer: String = "")
+data class QuestionModel(var question: String = "",
+                         var optionA: String = "",
+                         var optionB: String = "",
+                         var optionC: String = "",
+                         var optionD: String = "",
+                         var answer: String = "") {
+    var id = 0
+}

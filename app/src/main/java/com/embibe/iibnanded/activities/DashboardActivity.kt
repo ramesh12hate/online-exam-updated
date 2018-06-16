@@ -13,8 +13,10 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import com.embibe.iibnanded.R
+import com.embibe.iibnanded.database.DbHelper
 import com.embibe.iibnanded.fragments.ConductedTestFragment
 import com.embibe.iibnanded.fragments.UpcomingTestFragment
+import com.embibe.iibnanded.model.QuestionModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
@@ -22,6 +24,7 @@ import org.jetbrains.anko.toast
 
 class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
+    private var allQuestions: ArrayList<QuestionModel> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +69,8 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         tabs.setupWithViewPager(viewpager)
         tabs.addOnTabSelectedListener(this)
 
-
+        val dbHelper = DbHelper(this)
+        allQuestions = dbHelper.allQuestions
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
