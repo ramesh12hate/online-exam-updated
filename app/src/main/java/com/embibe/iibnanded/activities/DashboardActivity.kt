@@ -1,33 +1,72 @@
 package com.embibe.iibnanded.activities
 
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
+import android.view.View
 import com.embibe.iibnanded.R
 import com.embibe.iibnanded.fragments.ConductedTestFragment
 import com.embibe.iibnanded.fragments.UpcomingTestFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.toast
 
 
-class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
+class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard)
+        setContentView(R.layout.activity_main)
 
         toolbar.title = "Home"
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        setSupportActionBar(toolbar)
+
+        val mDrawerToggle = object : ActionBarDrawerToggle(
+                this, /* host Activity */
+                drawer_layout, /* DrawerLayout object */
+                toolbar, /* toolbar object */
+                R.string.drawer_open, /* "open drawer" description */
+                R.string.drawer_close  /* "close drawer" description */
+        ) {
+
+            /** Called when a drawer has settled in a completely closed state.  */
+
+            override fun onDrawerClosed(view: View) {
+                super.onDrawerClosed(view)
+                supportActionBar!!.title = "Home"
+            }
+
+            /** Called when a drawer has settled in a completely open state.  */
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+                supportActionBar!!.title = "Home"
+            }
+        }
+
+        // Set the drawer toggle as the DrawerListener
+        drawer_layout.addDrawerListener(mDrawerToggle)
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_drawer)
+
+        nav_view.setNavigationItemSelectedListener(this)
         setupViewPager(viewpager)
 
         tabs.setupWithViewPager(viewpager)
         tabs.addOnTabSelectedListener(this)
+
+
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
@@ -49,6 +88,39 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        val id = item.itemId
+
+        when (id) {
+            R.id.nav_scorecard -> {
+                toast("Scoreboard Clicked")
+            }
+            R.id.nav_Setting -> {
+                toast("Settings Clicked")
+            }
+            R.id.nav_share -> {
+
+                toast("Share Clicked")
+            }
+            R.id.nav_feedback -> {
+                toast("Feedback Clicked")
+            }
+            R.id.nav_Help -> {
+                toast("Help Clicked")
+            }
+            R.id.nav_aboutus -> {
+                toast("About Us Clicked")
+            }
+        }
+
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    /**
+     * View Pager Class for loading the fragments in the pager
+     */
     internal inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
         private val mFragmentList = ArrayList<Fragment>()
         private val mFragmentTitleList = ArrayList<String>()

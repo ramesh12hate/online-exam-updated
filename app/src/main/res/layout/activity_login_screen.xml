@@ -40,11 +40,13 @@
                 android:hint="@string/email_or_number"
                 android:inputType="textEmailAddress"
                 android:padding="15dp"
+                android:text="santosh@gmail.com"
                 android:textColorHint="@color/login_text_gray"
                 android:textSize="13sp" />
 
             <EditText
                 android:id="@+id/et_password"
+                android:text="saas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
