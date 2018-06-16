@@ -7,4 +7,6 @@
     <string name="your_password">Your Password</string>
     <string name="sign_in">Sign In</string>
     <string name="forget_password">Forget Password ?</string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
 </resources>
