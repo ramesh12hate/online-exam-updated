@@ -74,6 +74,10 @@ class LoginScreenActivity : AppCompatActivity() {
      * Method is used to check if user is valid or not
      */
     private fun callLoginAPI(userName: String, password: String) {
+        startActivity<DashboardActivity>().apply {
+            finish()
+            return
+        }
         mProgressDialog.show()
 
         val call = apiService.validateLogin(userName, password)

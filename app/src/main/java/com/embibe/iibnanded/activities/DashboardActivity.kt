@@ -25,6 +25,7 @@ import com.embibe.iibnanded.network.utils.IResponsePublisher
 import com.embibe.iibnanded.model.QuestionModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Response
@@ -114,6 +115,7 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         when (id) {
             R.id.nav_scorecard -> {
                 toast("Scoreboard Clicked")
+                startActivity<QuestionActivity>()
             }
             R.id.nav_Setting -> {
                 toast("Settings Clicked")
