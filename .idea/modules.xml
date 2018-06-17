@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/OnlineStudentExam.iml" filepath="$PROJECT_DIR$/OnlineStudentExam.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/online-exam-updated.iml" filepath="$PROJECT_DIR$/online-exam-updated.iml" />
     </modules>
   </component>
 </project>

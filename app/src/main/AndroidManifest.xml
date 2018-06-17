@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.embibe.iibnanded">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.SplashActivity">
-        </activity>
-
-        <activity android:name=".activities.LoginScreenActivity" />
-
-        <activity android:name=".activities.DashboardActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +19,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activities.LoginScreenActivity" />
+
+        <activity android:name=".activities.DashboardActivity" />
+
+        <activity android:name=".activities.QuestionActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 

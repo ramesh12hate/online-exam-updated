@@ -9,4 +9,10 @@
     <string name="forget_password">Forget Password ?</string>
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
+    <string name="submit">Submit</string>
+    <string name="radiobutton">RadioButton</string>
+    <string name="Next">Next</string>
+    <string name="checkbox">Checkbox</string>
+    <string name="time_remaining">Time Remaining: %1$s</string>
+    <string name="time_finish">Time Elasped!</string>
 </resources>

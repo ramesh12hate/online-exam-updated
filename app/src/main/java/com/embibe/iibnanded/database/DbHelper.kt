@@ -4,13 +4,17 @@ import android.database.sqlite.SQLiteDatabase
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.embibe.iibnanded.model.QuestionModel
 
 
 class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     private var dbase: SQLiteDatabase? = null
 
-
+    init {
+        readableDatabase
+        Log.i("DB", "Init");
+    }
     // Select All Query
     // looping through all rows and adding to list
     // return quest list
@@ -39,6 +43,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         }
 
     override fun onCreate(db: SQLiteDatabase) {
+        Log.i("DB", "dbOnCreate");
         dbase = db
         val sql = ("CREATE TABLE IF NOT EXISTS " + TABLE_QUEST + " ( "
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_QUES
@@ -73,6 +78,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldV: Int, newV: Int) {
+        Log.i("DB", "onUpgrade");
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS $TABLE_QUEST")
         // Create tables again
@@ -80,7 +86,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
     }
 
     // Adding new question
-    fun addQuestion(quest: QuestionModel) {
+    private fun addQuestion(quest: QuestionModel) {
         //SQLiteDatabase db = this.getWritableDatabase();
         val values = ContentValues()
         values.put(KEY_QUES, quest.question)

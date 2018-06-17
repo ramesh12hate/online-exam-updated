@@ -5,6 +5,7 @@ data class QuestionModel(var question: String = "",
                          var optionB: String = "",
                          var optionC: String = "",
                          var optionD: String = "",
-                         var answer: String = "") {
+                         var answer: String = "",
+                         var questionType: Int = 1) {
     var id = 0
 }
