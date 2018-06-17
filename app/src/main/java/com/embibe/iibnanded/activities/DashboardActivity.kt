@@ -84,8 +84,8 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         apiManager?.registerResponseObserver(responsePublisher)
         apiManager?.getDashboardInfo(20)
 
-        val dbHelper = DbHelper(this)
-        allQuestions = dbHelper.allQuestions
+//        val dbHelper = DbHelper(this)
+//        allQuestions = dbHelper.allQuestions
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
