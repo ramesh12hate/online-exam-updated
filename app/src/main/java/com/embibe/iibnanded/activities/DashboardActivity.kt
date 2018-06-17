@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.embibe.iibnanded.R
+import com.embibe.iibnanded.database.DbHelper
 import com.embibe.iibnanded.fragments.ConductedTestFragment
 import com.embibe.iibnanded.fragments.UpcomingTestFragment
 import com.embibe.iibnanded.network.manager.ApiManager
@@ -21,6 +22,7 @@ import com.embibe.iibnanded.network.manager.IApiManager
 import com.embibe.iibnanded.network.model.GetDashboardInfo.GetDashboardInfoResp
 import com.embibe.iibnanded.network.utils.BaseResponse
 import com.embibe.iibnanded.network.utils.IResponsePublisher
+import com.embibe.iibnanded.model.QuestionModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
@@ -33,6 +35,7 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
     private var apiManager: IApiManager? = null
     private var mConductedDashboardDataReceivedListener: OnDashboardDataReceivedListener? = null
     private var mUpcomingDashboardDataReceivedListener: OnDashboardDataReceivedListener? = null
+    private var allQuestions: ArrayList<QuestionModel> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +83,9 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         apiManager = ApiManager.instance
         apiManager?.registerResponseObserver(responsePublisher)
         apiManager?.getDashboardInfo(20)
+
+        val dbHelper = DbHelper(this)
+        allQuestions = dbHelper.allQuestions
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
