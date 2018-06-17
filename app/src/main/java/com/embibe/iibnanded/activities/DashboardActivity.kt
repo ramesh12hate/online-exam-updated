@@ -12,19 +12,30 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.embibe.iibnanded.R
 import com.embibe.iibnanded.database.DbHelper
 import com.embibe.iibnanded.fragments.ConductedTestFragment
 import com.embibe.iibnanded.fragments.UpcomingTestFragment
+import com.embibe.iibnanded.network.manager.ApiManager
+import com.embibe.iibnanded.network.manager.IApiManager
+import com.embibe.iibnanded.network.model.GetDashboardInfo.GetDashboardInfoResp
+import com.embibe.iibnanded.network.utils.BaseResponse
+import com.embibe.iibnanded.network.utils.IResponsePublisher
 import com.embibe.iibnanded.model.QuestionModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Response
 
 
 class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
+    private var apiManager: IApiManager? = null
+    private var mConductedDashboardDataReceivedListener: OnDashboardDataReceivedListener? = null
+    private var mUpcomingDashboardDataReceivedListener: OnDashboardDataReceivedListener? = null
     private var allQuestions: ArrayList<QuestionModel> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +73,17 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_drawer)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.test)
 
         nav_view.setNavigationItemSelectedListener(this)
         setupViewPager(viewpager)
 
         tabs.setupWithViewPager(viewpager)
         tabs.addOnTabSelectedListener(this)
+        ApiManager.init(this)
+        apiManager = ApiManager.instance
+        apiManager?.registerResponseObserver(responsePublisher)
+        apiManager?.getDashboardInfo(20)
 
         val dbHelper = DbHelper(this)
         allQuestions = dbHelper.allQuestions
@@ -149,4 +164,53 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         }
     }
 
+    private val responsePublisher = object: IResponsePublisher<BaseResponse> {
+        override fun onSuccess(requestType: Int, call: Call<*>, responseBean: BaseResponse) {
+
+        }
+
+        override fun onSuccess(requestType: Int, call: Call<*>, response: Response<*>) {
+            if (response != null) {
+                handleResult(response.body() as ArrayList<GetDashboardInfoResp>)
+            }
+        }
+
+        override fun onUnauthorised(requestType: Int, call: Call<*>, responseBean: BaseResponse) {
+            Toast.makeText(this@DashboardActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onError(requestType: Int, call: Call<*>, error: Throwable) {
+            if (error != null) {
+                Toast.makeText(this@DashboardActivity, "Something went wrong2", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private  fun handleResult(list : ArrayList<GetDashboardInfoResp>) {
+        var conductedTest = ArrayList<GetDashboardInfoResp>()
+        var upcomingTest = ArrayList<GetDashboardInfoResp>()
+        if(null != list && list.size > 0) {
+            for (i in 0 until list.size-1) {
+                if(list[i].testStatus.equals("Conducted", true))
+                    conductedTest.add(list.get(i))
+                else
+                    upcomingTest.add(list.get(i))
+            }
+        }
+        mConductedDashboardDataReceivedListener!!.onDataReceived(conductedTest)
+        mUpcomingDashboardDataReceivedListener!!.onDataReceived(upcomingTest)
+
+    }
+
+    interface OnDashboardDataReceivedListener {
+        fun onDataReceived(list: ArrayList<GetDashboardInfoResp>)
+    }
+
+    fun setConductedDashboardDataListener(listener: OnDashboardDataReceivedListener) {
+        this.mConductedDashboardDataReceivedListener = listener
+    }
+
+    fun setUpcomingDashboardDataListener(listener: OnDashboardDataReceivedListener) {
+        this.mUpcomingDashboardDataReceivedListener = listener
+    }
 }
