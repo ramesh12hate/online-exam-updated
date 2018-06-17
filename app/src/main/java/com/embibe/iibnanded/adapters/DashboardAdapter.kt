@@ -8,17 +8,31 @@ import android.view.ViewGroup
 import com.embibe.iibnanded.R
 import com.embibe.iibnanded.network.model.GetDashboardInfo.GetDashboardInfoResp
 import kotlinx.android.synthetic.main.list_item.view.*
+import java.util.ArrayList
 
 /**
  * Created by mindstix on 16/06/18.
  */
-class DashboardAdapter (val items : List<GetDashboardInfoResp>, val context: Context) : RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
+class DashboardAdapter (var items: List<GetDashboardInfoResp>?, val context: Context) : RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.tvType?.text = items.get(position).testName
+        if (items != null) {
+            holder?.tvTestName?.text = items!!.get(position).testName
+            holder?.tvNoOfQuestion?.text = items!!.get(position).noOfQuestions
+            holder?.tvDuration?.text = items!!.get(position).testTotalTime + " Hrs"
+
+        }
+    }
+
+    fun setData(items: List<GetDashboardInfoResp>) {
+        this.items = items
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        if (items != null) {
+            return items!!.size
+        }
+        return 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,6 +41,8 @@ class DashboardAdapter (val items : List<GetDashboardInfoResp>, val context: Con
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         // Holds the TextView that will add each animal to
-        val tvType = view.tv_type
+        val tvTestName = view.tv_test_name
+        val tvNoOfQuestion = view.tv_no_of_questions
+        val tvDuration = view.tv_duration
     }
 }
