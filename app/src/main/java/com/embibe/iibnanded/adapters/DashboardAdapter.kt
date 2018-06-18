@@ -16,9 +16,9 @@ import java.util.ArrayList
 class DashboardAdapter (var items: List<GetDashboardInfoResp>?, val context: Context) : RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (items != null) {
-            holder?.tvTestName?.text = items!!.get(position).testName
-            holder?.tvNoOfQuestion?.text = items!!.get(position).noOfQuestions
-            holder?.tvDuration?.text = items!!.get(position).testTotalTime + " Hrs"
+            holder.tvTestName?.text = items!!.get(position).testName
+            holder.tvNoOfQuestion?.text = items!!.get(position).noOfQuestions
+            holder.tvDuration?.text = items!![position].testTotalTime + " Hrs"
 
         }
     }

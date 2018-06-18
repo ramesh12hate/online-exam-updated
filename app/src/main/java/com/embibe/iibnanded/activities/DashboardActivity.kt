@@ -10,6 +10,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -17,14 +18,16 @@ import com.embibe.iibnanded.R
 import com.embibe.iibnanded.database.DbHelper
 import com.embibe.iibnanded.fragments.ConductedTestFragment
 import com.embibe.iibnanded.fragments.UpcomingTestFragment
+import com.embibe.iibnanded.model.QuestionModel
 import com.embibe.iibnanded.network.manager.ApiManager
 import com.embibe.iibnanded.network.manager.IApiManager
 import com.embibe.iibnanded.network.model.GetDashboardInfo.GetDashboardInfoResp
 import com.embibe.iibnanded.network.utils.BaseResponse
 import com.embibe.iibnanded.network.utils.IResponsePublisher
-import com.embibe.iibnanded.model.QuestionModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
@@ -89,10 +92,29 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         allQuestions = dbHelper.allQuestions
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+
+
+        return if (id == R.id.action_settings) {
+            true
+        } else super.onOptionsItemSelected(item)
+
+    }
+
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(UpcomingTestFragment(), "Upcoming Test")
-        adapter.addFragment(ConductedTestFragment(), "Conducted Test")
+        adapter.addFragment(UpcomingTestFragment(), getString(R.string.upcoming_test))
+        adapter.addFragment(ConductedTestFragment(), getString(R.string.conducted_test))
         viewPager.adapter = adapter
     }
 
@@ -133,6 +155,19 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
             R.id.nav_aboutus -> {
                 toast("About Us Clicked")
             }
+            R.id.log_out -> {
+                alert(getString(R.string.logout_msg)) {
+                    title = getString(R.string.alert)
+                    positiveButton(getString(R.string.Yes)) {
+                        it.dismiss()
+                        startActivity<LoginScreenActivity>().apply { finish() }
+                    }
+                    negativeButton(getString(R.string.No)) {
+                        it.dismiss()
+                    }
+                }.show()
+
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -164,7 +199,7 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         }
     }
 
-    private val responsePublisher = object: IResponsePublisher<BaseResponse> {
+    private val responsePublisher = object : IResponsePublisher<BaseResponse> {
         override fun onSuccess(requestType: Int, call: Call<*>, responseBean: BaseResponse) {
 
         }
@@ -186,15 +221,15 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         }
     }
 
-    private  fun handleResult(list : ArrayList<GetDashboardInfoResp>) {
-        var conductedTest = ArrayList<GetDashboardInfoResp>()
-        var upcomingTest = ArrayList<GetDashboardInfoResp>()
-        if(null != list && list.size > 0) {
-            for (i in 0 until list.size-1) {
-                if(list[i].testStatus.equals("Conducted", true))
-                    conductedTest.add(list.get(i))
+    private fun handleResult(list: ArrayList<GetDashboardInfoResp>) {
+        val conductedTest = ArrayList<GetDashboardInfoResp>()
+        val upcomingTest = ArrayList<GetDashboardInfoResp>()
+        if (null != list && list.size > 0) {
+            for (i in 0 until list.size - 1) {
+                if (list[i].testStatus.equals("Conducted", true))
+                    conductedTest.add(list[i])
                 else
-                    upcomingTest.add(list.get(i))
+                    upcomingTest.add(list[i])
             }
         }
         mConductedDashboardDataReceivedListener!!.onDataReceived(conductedTest)

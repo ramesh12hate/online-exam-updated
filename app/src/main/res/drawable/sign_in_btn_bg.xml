@@ -14,7 +14,7 @@
             <size
                 android:height="30dp"/>
             <solid
-                android:color="@color/sign_in_btn_blue"/>
+                android:color="@color/white"/>
         </shape>
     </item>
     <item>
@@ -29,7 +29,7 @@
             <size
                 android:height="30dp"/>
             <solid
-                android:color="@color/sign_in_btn_blue"/>
+                android:color="@color/white"/>
         </shape>
     </item>
 </selector>

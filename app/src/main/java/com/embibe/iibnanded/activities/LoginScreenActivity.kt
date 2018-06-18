@@ -1,16 +1,19 @@
 package com.embibe.iibnanded.activities
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
+import android.view.Gravity
+import android.view.View
+import android.widget.Toast
 import com.embibe.iibnanded.R
 import com.embibe.iibnanded.model.LoginModel
 import com.embibe.iibnanded.rest.ApiClient
 import com.embibe.iibnanded.rest.ApiInterface
 import com.embibe.iibnanded.util.Utilities
+import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.activity_login_screen.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
@@ -29,8 +32,8 @@ class LoginScreenActivity : AppCompatActivity() {
     }
 
     private lateinit var apiService: ApiInterface
-    private lateinit var mProgressDialog: ProgressDialog
 
+    private lateinit var mAlertDialog: SpotsDialog
     /**
      * Initialise the views and click listeners
      */
@@ -39,9 +42,7 @@ class LoginScreenActivity : AppCompatActivity() {
         apiService = ApiClient.client.create(ApiInterface::class.java)
 
         //Initialise the progress dialog and set title and message to progress dialog
-        mProgressDialog = ProgressDialog(this)
-        mProgressDialog.setTitle("Fetching data")
-        mProgressDialog.setMessage("Please wait a bit..")
+        mAlertDialog = SpotsDialog(this, R.style.AlertDialogTheme)
 
 
         tv_forget_password.setOnClickListener {
@@ -68,17 +69,23 @@ class LoginScreenActivity : AppCompatActivity() {
 
     }
 
+    //Used to show the help by triggering a toast
+    fun showHelp(view: View) {
+        val toastHelp = Toast(this)
+        toastHelp.setGravity(Gravity.CENTER, 0, 0)
+        toastHelp.duration = Toast.LENGTH_LONG
+        toastHelp.view = layoutInflater.inflate(R.layout.help, findViewById(R.id.linear))
+        toastHelp.show()
+    }
+
+
     /**
      * @param userName username entered by user
      * @param password password enetered by user
      * Method is used to check if user is valid or not
      */
     private fun callLoginAPI(userName: String, password: String) {
-        startActivity<DashboardActivity>().apply {
-            finish()
-            return
-        }
-        mProgressDialog.show()
+        mAlertDialog.show()
 
         val call = apiService.validateLogin(userName, password)
 
@@ -108,16 +115,16 @@ class LoginScreenActivity : AppCompatActivity() {
                     }
                 }
 
-                if (mProgressDialog.isShowing)
-                    mProgressDialog.dismiss()
+                if (mAlertDialog.isShowing)
+                    mAlertDialog.dismiss()
             }
 
             override fun onFailure(call: Call<LoginModel>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("Login", t.toString())
 
-                if (mProgressDialog.isShowing)
-                    mProgressDialog.dismiss()
+                if (mAlertDialog.isShowing)
+                    mAlertDialog.dismiss()
             }
         })
     }
