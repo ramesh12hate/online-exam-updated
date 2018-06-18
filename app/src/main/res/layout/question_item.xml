@@ -1,5 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginEnd="20dp"
     android:layout_marginStart="20dp"
@@ -92,30 +97,7 @@
             android:padding="5dp"
             android:text="@string/checkbox" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/open_sans"
-            android:padding="5dp"
-            android:text="@string/submit" />
-
-        <Button
-            android:id="@+id/btn_review"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/open_sans"
-            android:padding="5dp"
-            android:text="@string/Next" />
-    </LinearLayout>
-
-
 </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

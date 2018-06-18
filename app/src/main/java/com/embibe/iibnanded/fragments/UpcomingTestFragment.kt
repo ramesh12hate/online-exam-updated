@@ -12,8 +12,12 @@ import com.embibe.iibnanded.adapters.DashboardAdapter
 import com.embibe.iibnanded.network.model.GetDashboardInfo.GetDashboardInfoResp
 import kotlinx.android.synthetic.main.fragment_conducted_test.*
 
-class UpcomingTestFragment : Fragment(), DashboardActivity.OnDashboardDataReceivedListener {
-    lateinit var adapter : DashboardAdapter;
+class UpcomingTestFragment : Fragment(), DashboardActivity.OnDashboardDataReceivedListener, DashboardAdapter.OnItemClickListener {
+    override fun onItemClick(position: Int) {
+
+    }
+
+    lateinit var adapter : DashboardAdapter
     override fun onDataReceived(list: ArrayList<GetDashboardInfoResp>) {
         adapter.setData(list)
         adapter.notifyDataSetChanged()

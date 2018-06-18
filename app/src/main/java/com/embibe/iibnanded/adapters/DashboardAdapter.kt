@@ -14,6 +14,11 @@ import java.util.ArrayList
  * Created by mindstix on 16/06/18.
  */
 class DashboardAdapter (var items: List<GetDashboardInfoResp>?, val context: Context) : RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
+
+    private var mListener : DashboardAdapter.OnItemClickListener? = null;
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (items != null) {
             holder?.tvTestName?.text = items!!.get(position).testName
@@ -22,6 +27,8 @@ class DashboardAdapter (var items: List<GetDashboardInfoResp>?, val context: Con
 
         }
     }
+
+
 
     fun setData(items: List<GetDashboardInfoResp>) {
         this.items = items
@@ -40,7 +47,6 @@ class DashboardAdapter (var items: List<GetDashboardInfoResp>?, val context: Con
     }
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
-        // Holds the TextView that will add each animal to
         val tvTestName = view.tv_test_name
         val tvNoOfQuestion = view.tv_no_of_questions
         val tvDuration = view.tv_duration

@@ -68,7 +68,7 @@
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
                 android:text="@string/forget_password"
-                android:textColor="@color/login_text_gray" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <Button
                 android:id="@+id/btn_sign_in"
@@ -76,11 +76,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/sign_in_btn_bg"
-                android:fontFamily="@font/open_sans_semibold"
                 android:gravity="center"
                 android:text="@string/sign_in"
+                android:fontFamily="@font/open_sans_semibold"
                 android:textAllCaps="false"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
