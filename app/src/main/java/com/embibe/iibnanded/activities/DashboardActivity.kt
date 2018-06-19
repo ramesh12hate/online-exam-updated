@@ -88,8 +88,8 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         apiManager?.registerResponseObserver(responsePublisher)
         apiManager?.getDashboardInfo(20)
 
-        val dbHelper = DbHelper(this)
-        allQuestions = dbHelper.allQuestions
+//        val dbHelper = DbHelper(this)
+//        allQuestions = dbHelper.allQuestions
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
