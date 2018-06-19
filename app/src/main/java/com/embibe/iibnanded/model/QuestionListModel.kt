@@ -6,5 +6,5 @@ package com.embibe.iibnanded.model
 
 class QuestionListModel(questionNo: Int, QuestionType: Int) {
     internal var questionNo: Int = 0
-    internal var questionType: Int = 0
+    internal var questionStatus: Int = 0
 }

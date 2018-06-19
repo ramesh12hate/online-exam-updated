@@ -15,15 +15,17 @@ import kotlinx.android.synthetic.main.fragment_conducted_test.*
 class ConductedTestFragment : Fragment(), DashboardActivity.OnDashboardDataReceivedListener{
     lateinit var adapter : DashboardAdapter;
     override fun onDataReceived(list: ArrayList<GetDashboardInfoResp>) {
-        adapter.setData(list)
-        adapter.notifyDataSetChanged()
+//        adapter.setData(list)
+//        adapter.notifyDataSetChanged()
+        adapter = DashboardAdapter(list, this@ConductedTestFragment.context!!)
+        rv_list.adapter = adapter
     }
 
     private lateinit var mMainView: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mMainView = inflater.inflate(R.layout.fragment_conducted_test, container, false)
-        var mActivity = activity as DashboardActivity?
+        val mActivity = activity as DashboardActivity?
         mActivity!!.setConductedDashboardDataListener(this)
         return mMainView
     }
@@ -31,7 +33,5 @@ class ConductedTestFragment : Fragment(), DashboardActivity.OnDashboardDataRecei
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rv_list.layoutManager = LinearLayoutManager(this@ConductedTestFragment.context)
-        adapter = DashboardAdapter(null, this@ConductedTestFragment.context!!)
-        rv_list.adapter = adapter
     }
 }

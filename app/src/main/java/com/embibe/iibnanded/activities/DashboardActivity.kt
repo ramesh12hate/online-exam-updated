@@ -137,7 +137,6 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
         when (id) {
             R.id.nav_scorecard -> {
                 toast("Scoreboard Clicked")
-                startActivity<QuestionActivity>()
             }
             R.id.nav_Setting -> {
                 toast("Settings Clicked")

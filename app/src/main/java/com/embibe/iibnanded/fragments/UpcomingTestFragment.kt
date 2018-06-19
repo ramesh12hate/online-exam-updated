@@ -19,22 +19,22 @@ class UpcomingTestFragment : Fragment(), DashboardActivity.OnDashboardDataReceiv
 
     lateinit var adapter : DashboardAdapter
     override fun onDataReceived(list: ArrayList<GetDashboardInfoResp>) {
-        adapter.setData(list)
-        adapter.notifyDataSetChanged()
+//        adapter.setData(list)
+//        adapter.notifyDataSetChanged()
+        adapter = DashboardAdapter(list, this@UpcomingTestFragment.context!!)
+        rv_list.adapter = adapter
     }
 
     private lateinit var mMainView:View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mMainView = inflater.inflate(R.layout.fragment_upcoming_test , container , false)
-        var mActivity = activity as DashboardActivity?
+        val mActivity = activity as DashboardActivity?
         mActivity!!.setUpcomingDashboardDataListener(this)
         return mMainView
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rv_list.layoutManager = LinearLayoutManager(this@UpcomingTestFragment.context)
-        adapter = DashboardAdapter(null, this@UpcomingTestFragment.context!!)
-        rv_list.adapter = adapter
     }
 }

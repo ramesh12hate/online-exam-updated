@@ -1,7 +1,6 @@
 package com.embibe.iibnanded.activities
 
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.view.PagerAdapter
@@ -9,30 +8,27 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.text.Layout
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.view.*
 import android.widget.RelativeLayout
 import com.embibe.iibnanded.R
+import com.embibe.iibnanded.adapters.ItemClickListener
 import com.embibe.iibnanded.adapters.QuestionListAdapter
 import com.embibe.iibnanded.model.QuestionListModel
 import com.embibe.iibnanded.model.QuestionModel
 
 import kotlinx.android.synthetic.main.activity_question.*
 import kotlinx.android.synthetic.main.question_item.view.*
+import org.jetbrains.anko.alert
 import java.util.concurrent.TimeUnit
 
 
-class QuestionActivity : AppCompatActivity() {
+class QuestionActivity : AppCompatActivity(), ItemClickListener {
     private var quesList = ArrayList<QuestionModel>()
-    lateinit var adapter : QuestionListAdapter
+
+    private lateinit var adapter: QuestionListAdapter
     private var list = ArrayList<QuestionListModel>()
     private var layoutManager = true;
-
     override fun onResume() {
         super.onResume()
         questionStatusChanged()
@@ -45,6 +41,9 @@ class QuestionActivity : AppCompatActivity() {
 
         toolbar.title = "Question Screen"
         setSupportActionBar(toolbar)
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
 
         addQuestions()
 
@@ -68,12 +67,13 @@ class QuestionActivity : AppCompatActivity() {
         rv_question_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         adapter = QuestionListAdapter(null, this)
+        adapter.setClickListener(this)
         rv_question_list.adapter = adapter
 
-        for (i in 0 until pager.adapter!!.count ) {
-            var questionListModel = QuestionListModel(i+1, i+1)
-            questionListModel.questionNo = i+1
-            questionListModel.questionType = 0
+        for (i in 0 until pager.adapter!!.count) {
+            val questionListModel = QuestionListModel(i + 1, i + 1)
+            questionListModel.questionNo = i + 1
+            questionListModel.questionStatus = 0
             list.add(questionListModel)
         }
         view_expand.setOnClickListener(onClickListener)
@@ -87,6 +87,7 @@ class QuestionActivity : AppCompatActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
             }
+
             override fun onPageSelected(position: Int) {
                 setUpPagerButton()
             }
@@ -94,19 +95,49 @@ class QuestionActivity : AppCompatActivity() {
         })
     }
 
-    private fun setUpPagerButton(){
-        if(quesList.size == pager.currentItem + 1)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+
+
+        return if (id == android.R.id.home) {
+            alert("Are you sure you want to finish the test") {
+                title = "Alert"
+                positiveButton("Yes") {
+                    it.dismiss()
+                    finish()
+                }
+                negativeButton("No") {
+                    it.dismiss()
+                }
+            }.show()
+            true
+        } else super.onOptionsItemSelected(item)
+
+    }
+
+    private fun setUpPagerButton() {
+
+        if (quesList.size == pager.currentItem + 1)
             btn_next.visibility = View.INVISIBLE
         else
             btn_next.visibility = View.VISIBLE
 
-        if(pager.currentItem == 0)
+        if (pager.currentItem == 0)
             btn_prev.visibility = View.INVISIBLE
         else
             btn_prev.visibility = View.VISIBLE
 
-
-
+        list[pager.currentItem].questionStatus = 2
+        adapter.notifyItemChanged(pager.currentItem)
     }
 
     private fun addQuestions() {
@@ -132,13 +163,18 @@ class QuestionActivity : AppCompatActivity() {
         quesList.add(q10)
     }
 
-    private fun questionStatusChanged(){
+    private fun questionStatusChanged() {
         adapter.setData(list)
         adapter.notifyDataSetChanged()
     }
 
+    override fun onClick(view: View, position: Int) {
+        pager.currentItem = position
+    }
+
+
     inner class CustomPagerAdapter(mContext: Context) : PagerAdapter() {
-        var mLayoutInflater: LayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        private var mLayoutInflater: LayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         override fun getCount(): Int {
             return quesList.size
@@ -182,15 +218,17 @@ class QuestionActivity : AppCompatActivity() {
             R.id.view_expand -> expandClicked()
             R.id.btn_next -> nextClicked()
             R.id.btn_prev -> prevClicked()
-            else -> { Log.e("QuestionActivity", "No view clicked") }
+            else -> {
+                Log.e("QuestionActivity", "No view clicked")
+            }
         }
     }
 
-    private fun nextClicked(){
-        if(quesList.size > pager.currentItem + 1) {
+    private fun nextClicked() {
+        if (quesList.size > pager.currentItem + 1) {
             pager.currentItem = pager.currentItem + 1
         }
-        if(quesList.size == pager.currentItem + 1)
+        if (quesList.size == pager.currentItem + 1)
             btn_next.visibility = View.INVISIBLE
         else
             btn_next.visibility = View.VISIBLE
@@ -198,11 +236,11 @@ class QuestionActivity : AppCompatActivity() {
         btn_prev.visibility = View.VISIBLE
     }
 
-    private fun prevClicked(){
-        if(pager.currentItem > -1) {
+    private fun prevClicked() {
+        if (pager.currentItem > -1) {
             pager.currentItem = pager.currentItem - 1
         }
-        if(pager.currentItem == 0)
+        if (pager.currentItem == 0)
             btn_prev.visibility = View.INVISIBLE
         else
             btn_prev.visibility = View.VISIBLE
@@ -210,13 +248,13 @@ class QuestionActivity : AppCompatActivity() {
         btn_next.visibility = View.VISIBLE
     }
 
-    private fun expandClicked(){
-        if(layoutManager) {
+    private fun expandClicked() {
+        if (layoutManager) {
             layoutManager = false
             rv_question_list.layoutManager = GridLayoutManager(this, Utility.calculateNoOfColumns(this))
             rv_question_list.adapter = adapter
             view_expand.setImageDrawable(resources.getDrawable(android.R.drawable.arrow_up_float))
-        }else{
+        } else {
             layoutManager = true
             rv_question_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rv_question_list.adapter = adapter

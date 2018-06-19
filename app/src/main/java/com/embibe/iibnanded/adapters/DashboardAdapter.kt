@@ -6,28 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.embibe.iibnanded.R
+import com.embibe.iibnanded.activities.QuestionActivity
 import com.embibe.iibnanded.network.model.GetDashboardInfo.GetDashboardInfoResp
 import kotlinx.android.synthetic.main.list_item.view.*
-import java.util.ArrayList
+import org.jetbrains.anko.startActivity
 
 /**
  * Created by mindstix on 16/06/18.
  */
-class DashboardAdapter (var items: List<GetDashboardInfoResp>?, val context: Context) : RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
+class DashboardAdapter(private var items: List<GetDashboardInfoResp>?, val context: Context) : RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
 
-    private var mListener : DashboardAdapter.OnItemClickListener? = null;
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (items != null) {
-            holder.tvTestName?.text = items!!.get(position).testName
-            holder.tvNoOfQuestion?.text = items!!.get(position).noOfQuestions
-            holder.tvDuration?.text = items!![position].testTotalTime + " Hrs"
-
-        }
+        holder.bindItems(items!![position])
     }
-
 
 
     fun setData(items: List<GetDashboardInfoResp>) {
@@ -36,19 +31,24 @@ class DashboardAdapter (var items: List<GetDashboardInfoResp>?, val context: Con
     }
 
     override fun getItemCount(): Int {
-        if (items != null) {
-            return items!!.size
-        }
-        return 0
+        return items!!.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.list_item, parent, false))
     }
 
-    class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
-        val tvTestName = view.tv_test_name
-        val tvNoOfQuestion = view.tv_no_of_questions
-        val tvDuration = view.tv_duration
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bindItems(item: GetDashboardInfoResp) {
+            itemView.tv_test_name.text = item.testName
+            itemView.tv_no_of_questions.text = item.noOfQuestions
+            itemView.tv_duration.text = item.noOfQuestions
+
+            if (item.testStatus.equals("Upcomming")) {
+                itemView.setOnClickListener {
+                    context.startActivity<QuestionActivity>()
+                }
+            }
+        }
     }
 }
