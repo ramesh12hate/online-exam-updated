@@ -39,7 +39,6 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
     private var apiManager: IApiManager? = null
     private var mConductedDashboardDataReceivedListener: OnDashboardDataReceivedListener? = null
     private var mUpcomingDashboardDataReceivedListener: OnDashboardDataReceivedListener? = null
-    private var allQuestions: ArrayList<QuestionModel> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
