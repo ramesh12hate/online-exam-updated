@@ -6,13 +6,13 @@
 
     <TextView
         android:id="@+id/tv_question_no"
-        android:text="2"
+        android:text="0"
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:background="@drawable/question_white_highlight"
+        android:background="@drawable/question_gray_highlight"
         android:gravity="center"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
 
 </android.support.constraint.ConstraintLayout>

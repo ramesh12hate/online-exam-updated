@@ -44,7 +44,9 @@ class QuestionListAdapter(var items: List<QuestionListModel>?, val context: Cont
 
         fun bindItems(questionModel: QuestionListModel) {
             itemView.tv_question_no.text = questionModel.questionNo.toString()
-            if (questionModel.questionStatus == 2)
+            if (questionModel.questionStatus == 3)
+                itemView.tv_question_no.background = itemView.context.resources.getDrawable(R.drawable.question_blue_highlight)
+            else if (questionModel.questionStatus == 2)
                 itemView.tv_question_no.background = itemView.context.resources.getDrawable(R.drawable.question_green_highlight)
             else
                 itemView.context.resources.getDrawable(R.drawable.question_blue_highlight)
