@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape
-            android:shape="rectangle">
-            <corners
-                android:bottomLeftRadius="50dp"
-                android:radius="50dp"
-                android:topRightRadius="50dp"
-                android:topLeftRadius="50dp"
-                android:bottomRightRadius="50dp"/>
-            <size
-                android:height="30dp"/>
-            <stroke android:color="@color/colorPrimaryDark" android:width="3dp"></stroke>
-            <solid
-                android:color="@color/white"/>
+        <shape android:shape="rectangle">
+            <corners android:bottomLeftRadius="50dp" android:bottomRightRadius="50dp" android:radius="50dp" android:topLeftRadius="50dp" android:topRightRadius="50dp" />
+            <size android:height="30dp" />
+            <stroke android:width="1.5dp" android:color="@color/colorPrimaryDark" />
+            <solid android:color="@color/white" />
         </shape>
     </item>
 </selector>

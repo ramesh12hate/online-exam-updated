@@ -22,9 +22,9 @@
 
         <activity android:name=".activities.DashboardActivity" />
 
-        <activity android:name=".activities.QuestionActivity" >
+        <activity android:name=".activities.QuestionActivity" />
+        <activity android:name=".activities.ForgetPasswordActivity" />
 
-        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

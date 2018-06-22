@@ -46,25 +46,32 @@ class LoginScreenActivity : AppCompatActivity() {
 
 
         tv_forget_password.setOnClickListener {
-            //TODO Call the Forget Password API
-            toast("Navigate to Forget Password Screen")
+            startActivity<ForgetPasswordActivity>()
         }
 
 
         btn_sign_in.setOnClickListener {
             if (et_username.text.isNotEmpty()) {
-                if (isValidEmail(et_username.text.toString()) || isValidMobile(et_username.text.toString())) {
-                    if (et_password.text.isNotEmpty()) {
-                        callLoginAPI(et_username.text.toString().trim(), et_password.text.toString().trim())
-                    } else
-                        Utilities.showSnackBar(coordinatorLayout, "Please enter password")
-
+                if (et_password.text.isNotEmpty()) {
+                    callLoginAPI(et_username.text.toString().trim(), et_password.text.toString().trim())
                 } else
-                    Utilities.showSnackBar(coordinatorLayout, "Enter Valid User Name")
-
+                    Utilities.showSnackBar(coordinatorLayout, "Please enter password")
             } else {
-                Utilities.showSnackBar(coordinatorLayout, "Please enter credentials")
+                Utilities.showSnackBar(coordinatorLayout, "Please enter username")
             }
+//            if (et_username.text.isNotEmpty()) {
+//                if (isValidEmail(et_username.text.toString()) || isValidMobile(et_username.text.toString())) {
+//                    if (et_password.text.isNotEmpty()) {
+//                        callLoginAPI(et_username.text.toString().trim(), et_password.text.toString().trim())
+//                    } else
+//                        Utilities.showSnackBar(coordinatorLayout, "Please enter password")
+//
+//                } else
+//                    Utilities.showSnackBar(coordinatorLayout, "Enter Valid User Name")
+//
+//            } else {
+//                Utilities.showSnackBar(coordinatorLayout, "Please enter credentials")
+//            }
         }
 
     }
@@ -104,12 +111,8 @@ class LoginScreenActivity : AppCompatActivity() {
                     2 -> {
                         alert(responseMessage) {
                             title = "Alert"
-                            positiveButton("ok") {
+                            positiveButton("OK") {
                                 it.dismiss()
-                                startActivity<DashboardActivity>().apply {
-                                    finish()
-                                }
-
                             }
                         }.show()
                     }

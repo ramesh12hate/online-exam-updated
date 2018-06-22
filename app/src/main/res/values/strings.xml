@@ -4,7 +4,8 @@
     <string name="app_logo_goes_here">App Logo Goes Here</string>
     <string name="sign_in_text">Please Sign-in and access your\n account</string>
     <string name="login_with_your_account">Login to your account</string>
-    <string name="email_or_number">Email or Number</string>
+    <string name="email_or_number">Your Username</string>
+    <string name="email">Email</string>
     <string name="your_password">Your Password</string>
     <string name="sign_in">Sign In</string>
     <string name="forget_password">Forget Password ?</string>
@@ -41,4 +42,10 @@
         security purpose.
 
               Enjoy the app! ☺</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="hint_email">Email</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="btn_back"><![CDATA[<< Back]]></string>
+
 </resources>

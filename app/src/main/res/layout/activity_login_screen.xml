@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryTransparency"
+        android:background="@color/colorPrimary"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -39,9 +39,9 @@
                 android:background="@drawable/edittext_login_bg"
                 android:fontFamily="@font/open_sans"
                 android:hint="@string/email_or_number"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:padding="15dp"
-                android:text="santosh@gmail.com"
+                android:text="mahi"
                 android:textColorHint="@color/login_text_gray"
                 android:textSize="13sp" />
 
@@ -56,7 +56,7 @@
                 android:hint="@string/your_password"
                 android:inputType="textPassword"
                 android:padding="15dp"
-                android:text="saas"
+                android:text="123456"
                 android:textColorHint="@color/login_text_gray"
                 android:textSize="13sp" />
 
@@ -70,7 +70,7 @@
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
                 android:text="@string/forget_password"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btn_sign_in"
