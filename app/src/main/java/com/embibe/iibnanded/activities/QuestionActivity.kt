@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.*
 import android.widget.RelativeLayout
+import android.widget.Toast
 import com.embibe.iibnanded.R
 import com.embibe.iibnanded.adapters.ItemClickListener
 import com.embibe.iibnanded.adapters.QuestionListAdapter
@@ -29,6 +30,8 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
     private lateinit var adapter: QuestionListAdapter
     private var list = ArrayList<QuestionListModel>()
     private var layoutManager = true;
+    private var prevStartTime: Long = 0
+    private var prevPosition: Int = 0
     override fun onResume() {
         super.onResume()
         questionStatusChanged()
@@ -64,6 +67,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
             }
 
         }.start()
+        prevStartTime = System.currentTimeMillis()
         rv_question_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         adapter = QuestionListAdapter(null, this)
@@ -71,7 +75,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         rv_question_list.adapter = adapter
 
         for (i in 0 until pager.adapter!!.count) {
-            val questionListModel = QuestionListModel(i + 1, i + 1)
+            val questionListModel = QuestionListModel(i + 1, i + 1, 0)
             questionListModel.questionNo = i + 1
             questionListModel.questionStatus = 0
             list.add(questionListModel)
@@ -141,6 +145,9 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
             list[pager.currentItem].questionStatus = 2
             adapter.notifyItemChanged(pager.currentItem)
         }
+        list[prevPosition].questionTime = list[prevPosition].questionTime + (System.currentTimeMillis()- prevStartTime)
+        prevStartTime = System.currentTimeMillis()
+        prevPosition = pager.currentItem
     }
 
     private fun addQuestions() {
