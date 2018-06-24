@@ -14,53 +14,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e479542-2716-4f45-88c0-cf78b2594237" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="7e479542-2716-4f45-88c0-cf78b2594237" name="Default" comment=" - Changed the applications theme to voilet&#10; - Started working on the custom theme implementation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/BaseActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/BaseActivity.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/DashboardActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/DashboardActivity.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/LoginScreenActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/LoginScreenActivity.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/QuestionActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/QuestionActivity.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/SplashActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/activities/SplashActivity.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/adapters/DashboardAdapter.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/adapters/DashboardAdapter.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/util/AppPreferenceManager.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/util/AppPreferenceManager.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/util/Constants.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/util/Constants.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/util/Utilities.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/embibe/iibnanded/util/Utilities.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/anim/slide_in_left.xml" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_in_left.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/anim/slide_in_right.xml" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_in_right.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/anim/slide_out_left.xml" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_out_left.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/anim/slide_out_right.xml" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_out_right.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/drawable_purple_gradient.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/drawable_purple_gradient.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_star_black_24dp.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_star_black_24dp.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login_screen.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login_screen.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_question.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_question.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/forget_password.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/forget_password.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_list_question.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_list_question.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/question_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/question_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-      <change beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -2774,7 +2729,14 @@
       <option name="project" value="LOCAL" />
       <updated>1529811987907</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary=" - Changed the applications theme to voilet&#10; - Started working on the custom theme implementation">
+      <created>1529812006524</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1529812006524</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
