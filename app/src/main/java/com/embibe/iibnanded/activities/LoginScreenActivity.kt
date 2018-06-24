@@ -1,5 +1,6 @@
 package com.embibe.iibnanded.activities
 
+import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -14,7 +15,8 @@ import com.embibe.iibnanded.rest.ApiClient
 import com.embibe.iibnanded.rest.ApiInterface
 import com.embibe.iibnanded.util.Utilities
 import dmax.dialog.SpotsDialog
-import kotlinx.android.synthetic.main.activity_login_screen.*
+import kotlinx.android.synthetic.main.login.*
+
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -22,12 +24,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.regex.Pattern
+import android.graphics.drawable.ColorDrawable
+import android.view.Window
+import android.view.Window.FEATURE_NO_TITLE
+
+
 
 
 class LoginScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_screen)
+        setContentView(R.layout.login)
         setViews()
     }
 
@@ -105,6 +112,7 @@ class LoginScreenActivity : AppCompatActivity() {
                     1 -> {
                         startActivity<DashboardActivity>().apply {
                             finish()
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
                     }
 
@@ -151,5 +159,7 @@ class LoginScreenActivity : AppCompatActivity() {
         else
             false
     }
+
+
 
 }

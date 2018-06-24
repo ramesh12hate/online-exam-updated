@@ -3,6 +3,7 @@ package com.embibe.iibnanded.activities
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
@@ -11,13 +12,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.*
 import android.widget.RelativeLayout
+import android.widget.ScrollView
 import com.embibe.iibnanded.R
 import com.embibe.iibnanded.adapters.ItemClickListener
 import com.embibe.iibnanded.adapters.QuestionListAdapter
 import com.embibe.iibnanded.model.QuestionListModel
 import com.embibe.iibnanded.model.QuestionModel
+import com.embibe.iibnanded.util.AppPreferenceManager
 
 import kotlinx.android.synthetic.main.activity_question.*
+import kotlinx.android.synthetic.main.question_item.*
 import kotlinx.android.synthetic.main.question_item.view.*
 import org.jetbrains.anko.alert
 import java.util.concurrent.TimeUnit
@@ -37,6 +41,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(AppPreferenceManager().getSingleInstance(this).getAppPrefs().getInt("theme", 1))
         setContentView(R.layout.activity_question)
 
         toolbar.title = "Question Screen"
@@ -49,7 +54,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
 
         pager.adapter = CustomPagerAdapter(this)
 
-        object : CountDownTimer(300000, 1000) {
+        object : CountDownTimer(200000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
                 tv_exam_duration.text = getString(R.string.time_remaining, String.format("%d min : %d Sec",
@@ -60,7 +65,15 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
             }
 
             override fun onFinish() {
-                tv_exam_duration.text = getString(R.string.time_finish)
+                alert("You have exceeded your time limit. Please click on the OK button to view the test summary") {
+                    title = "Alert"
+                    positiveButton("OK") {
+                        it.dismiss()
+                    }
+                    negativeButton("Cancel") {
+                        it.dismiss()
+                    }
+                }.show()
             }
 
         }.start()
@@ -110,11 +123,12 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
 
 
         return if (id == android.R.id.home) {
-            alert("Are you sure you want to finish the test") {
+            alert("Are you sure you want to finish the test?") {
                 title = "Alert"
                 positiveButton("Yes") {
                     it.dismiss()
                     finish()
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
                 negativeButton("No") {
                     it.dismiss()
@@ -137,7 +151,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         else
             btn_prev.visibility = View.VISIBLE
 
-        if(list[pager.currentItem].questionStatus != 3) {
+        if (list[pager.currentItem].questionStatus != 3) {
             list[pager.currentItem].questionStatus = 2
             adapter.notifyItemChanged(pager.currentItem)
         }
@@ -177,6 +191,8 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
 
 
     inner class CustomPagerAdapter(mContext: Context) : PagerAdapter() {
+
+
         private var mLayoutInflater: LayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         override fun getCount(): Int {
@@ -184,7 +200,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         }
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
-            return view === `object` as RelativeLayout
+            return view === `object` as ScrollView
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -205,15 +221,15 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
                 itemView.checkbox3.text = quesList[position].optionC
                 itemView.checkbox4.text = quesList[position].optionD
             }
-
             itemView.question.text = quesList[position].question
             container.addView(itemView)
             return itemView
         }
 
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-            container.removeView(`object` as RelativeLayout)
+            container.removeView(`object` as ScrollView)
         }
+
     }
 
     private val onClickListener = View.OnClickListener { view ->
@@ -252,8 +268,8 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         btn_next.visibility = View.VISIBLE
     }
 
-    private fun reviewLaterClicked(){
-        if(list[pager.currentItem].questionStatus == 2)
+    private fun reviewLaterClicked() {
+        if (list[pager.currentItem].questionStatus == 2)
             list[pager.currentItem].questionStatus = 3
         else
             list[pager.currentItem].questionStatus = 2

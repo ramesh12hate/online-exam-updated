@@ -23,6 +23,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -37,13 +38,31 @@
         <item name="colorPrimary">#9F79EE</item>
         <item name="colorPrimaryDark">#5D478B</item>
         <item name="colorAccent">#8968CD</item>
+        <item name="questionInnerBg">@color/colorPrimary</item>
+        <item name="questionOuterBg">@color/colorPrimary</item>
     </style>
 
+    <style name="voiletTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#D500F9</item>
+        <item name="colorPrimaryDark">#FFB301D1</item>
+        <item name="colorAccent">#cb31e6</item>
+        <item name="questionInnerBg">@color/colorPrimary</item>
+        <item name="questionOuterBg">@color/colorPrimary</item>
+    </style>
+
+    <style name="amberTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FFC400</item>
+        <item name="colorPrimaryDark">#e9b91c</item>
+        <item name="colorAccent">#f9c313</item>
+        <item name="questionInnerBg">@color/colorPrimary</item>
+        <item name="questionOuterBg">@color/colorPrimary</item>
+    </style>
 
     <style name="AlertDialogTheme" parent="android:Theme.DeviceDefault.Light.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogTitleText">Please wait…</item>
         <item name="DialogSpotColor">@color/sign_in_btn_blue</item>
         <item name="DialogSpotCount">5</item>
+
     </style>
 </resources>

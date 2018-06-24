@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.embibe.iibnanded.R
+import com.embibe.iibnanded.activities.DashboardActivity
 import com.embibe.iibnanded.activities.QuestionActivity
 import com.embibe.iibnanded.network.model.GetDashboardInfo.GetDashboardInfoResp
 import kotlinx.android.synthetic.main.list_item.view.*
@@ -47,6 +48,7 @@ class DashboardAdapter(private var items: List<GetDashboardInfoResp>?, val conte
             if (item.testStatus.equals("Upcomming")) {
                 itemView.setOnClickListener {
                     context.startActivity<QuestionActivity>()
+                    (context as DashboardActivity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
             }
         }

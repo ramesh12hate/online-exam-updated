@@ -7,6 +7,7 @@
     <string name="email_or_number">Your Username</string>
     <string name="email">Email</string>
     <string name="your_password">Your Password</string>
+    <string name="password">Password</string>
     <string name="sign_in">Sign In</string>
     <string name="forget_password">Forget Password ?</string>
     <string name="drawer_open">drawer open</string>
@@ -47,5 +48,13 @@
     <string name="hint_email">Email</string>
     <string name="btn_reset_password">Reset Password</string>
     <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="prev">Prev</string>
+    <string name="review">Review</string>
+    <string name="action_sign_in">Login</string>
 
+    <string-array name="theme_array">
+        <item>Voilet</item>
+        <item>Purple</item>
+        <item>Voilet</item>
+    </string-array>
 </resources>

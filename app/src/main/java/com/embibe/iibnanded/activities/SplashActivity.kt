@@ -9,7 +9,10 @@ import org.jetbrains.anko.startActivity
 class SplashActivity : AppCompatActivity() {
     internal val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
-            startActivity<LoginScreenActivity>().also { finish() }
+            startActivity<LoginScreenActivity>().also {
+                finish()
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
         }
     }
 

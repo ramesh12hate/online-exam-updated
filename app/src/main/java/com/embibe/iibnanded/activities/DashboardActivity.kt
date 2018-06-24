@@ -1,5 +1,6 @@
 package com.embibe.iibnanded.activities
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
@@ -9,21 +10,21 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.embibe.iibnanded.R
-import com.embibe.iibnanded.database.DbHelper
 import com.embibe.iibnanded.fragments.ConductedTestFragment
 import com.embibe.iibnanded.fragments.UpcomingTestFragment
-import com.embibe.iibnanded.model.QuestionModel
 import com.embibe.iibnanded.network.manager.ApiManager
 import com.embibe.iibnanded.network.manager.IApiManager
 import com.embibe.iibnanded.network.model.GetDashboardInfo.GetDashboardInfoResp
 import com.embibe.iibnanded.network.utils.BaseResponse
 import com.embibe.iibnanded.network.utils.IResponsePublisher
+import com.embibe.iibnanded.util.Utilities
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -42,8 +43,8 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Utilities.setTheme(this)
         setContentView(R.layout.activity_main)
-
         toolbar.title = "Home"
 
         setSupportActionBar(toolbar)
@@ -61,12 +62,23 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
             override fun onDrawerClosed(view: View) {
                 super.onDrawerClosed(view)
                 supportActionBar!!.title = "Home"
+                @Suppress("DEPRECATION")
+                supportInvalidateOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely open state.  */
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
                 supportActionBar!!.title = "Home"
+                @Suppress("DEPRECATION")
+                supportInvalidateOptionsMenu()
+            }
+
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                super.onDrawerSlide(drawerView, slideOffset)
+                main_content.translationX = slideOffset * drawerView.width
+                drawer_layout.bringChildToFront(drawerView)
+                drawer_layout.requestLayout()
             }
         }
 
@@ -138,7 +150,7 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
                 toast("Scoreboard Clicked")
             }
             R.id.nav_Setting -> {
-                toast("Settings Clicked")
+                showThemeDialog()
             }
             R.id.nav_share -> {
 
@@ -158,7 +170,10 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
                     title = getString(R.string.alert)
                     positiveButton(getString(R.string.Yes)) {
                         it.dismiss()
-                        startActivity<LoginScreenActivity>().apply { finish() }
+                        startActivity<LoginScreenActivity>().apply {
+                            finish()
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
                     }
                     negativeButton(getString(R.string.No)) {
                         it.dismiss()
@@ -170,6 +185,22 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun showThemeDialog() {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Select Theme")
+                .setItems(R.array.theme_array, DialogInterface.OnClickListener { dialog, which ->
+                    // The 'which' argument contains the index position
+                    // of the selected item
+                    Toast.makeText(this, "You clicked " + resources.getStringArray(R.array.theme_array)[which], Toast.LENGTH_SHORT).show()
+                    Utilities.setTheme(this, which + 1)
+                    startActivity<DashboardActivity>().apply { finish() }
+                })
+        builder.create().show()
+
+
     }
 
     /**

@@ -10,14 +10,22 @@
     <!--<color name="ripple_white">#fcfcfc</color>-->
     <!--<color name="white">#FFFFFF</color>-->
 
-    <color name="colorPrimary">#9F79EE</color>
-    <color name="colorPrimaryDark">#5D478B</color>
-    <color name="colorAccent">#8968CD</color>
-    <color name="colorPrimaryTransparency">#cc9F79EE</color>
+    <!--<color name="colorPrimary">#9F79EE</color>-->
+    <!--<color name="colorPrimaryDark">#5D478B</color>-->
+    <!--<color name="colorAccent">#8968CD</color>-->
+    <!--<color name="colorPrimaryTransparency">#cc9F79EE</color>-->
+    <color name="colorPrimary">#D500F9</color>
+    <color name="colorPrimaryDark">#FFB301D1</color>
+    <color name="colorAccent">#cb31e6</color>
+    <color name="colorPrimaryTransparency">#BDB200F9</color>
+
     <color name="gray">#ffe6e6e6</color>
     <color name="login_text_gray">#4A4A4A</color>
     <color name="sign_in_btn_blue">#AAAAFF</color>
     <color name="ripple_white">#fcfcfc</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="colorPurple_A400">#D500F9</color>
+    <color name="colorPurple_900">#4A148C</color>
 
 </resources>
