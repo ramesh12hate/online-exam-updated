@@ -79,6 +79,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         view_expand.setOnClickListener(onClickListener)
         btn_next.setOnClickListener(onClickListener)
         btn_prev.setOnClickListener(onClickListener)
+        btn_review.setOnClickListener(onClickListener)
         pager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -136,8 +137,10 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         else
             btn_prev.visibility = View.VISIBLE
 
-        list[pager.currentItem].questionStatus = 2
-        adapter.notifyItemChanged(pager.currentItem)
+        if(list[pager.currentItem].questionStatus != 3) {
+            list[pager.currentItem].questionStatus = 2
+            adapter.notifyItemChanged(pager.currentItem)
+        }
     }
 
     private fun addQuestions() {
@@ -218,6 +221,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
             R.id.view_expand -> expandClicked()
             R.id.btn_next -> nextClicked()
             R.id.btn_prev -> prevClicked()
+            R.id.btn_review -> reviewLaterClicked()
             else -> {
                 Log.e("QuestionActivity", "No view clicked")
             }
@@ -248,6 +252,14 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         btn_next.visibility = View.VISIBLE
     }
 
+    private fun reviewLaterClicked(){
+        if(list[pager.currentItem].questionStatus == 2)
+            list[pager.currentItem].questionStatus = 3
+        else
+            list[pager.currentItem].questionStatus = 2
+        adapter.notifyItemChanged(pager.currentItem)
+    }
+
     private fun expandClicked() {
         if (layoutManager) {
             layoutManager = false
@@ -266,7 +278,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         fun calculateNoOfColumns(context: Context): Int {
             val displayMetrics = context.resources.displayMetrics
             val dpWidth = displayMetrics.widthPixels / displayMetrics.density
-            return (dpWidth / 59).toInt()
+            return (dpWidth / 39).toInt()
         }
     }
 

@@ -84,6 +84,18 @@
             android:text="Prev" />
 
         <Button
+            android:id="@+id/btn_review"
+            android:background="@drawable/sign_in_btn_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_semibold"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:text="Review" />
+
+        <Button
             android:id="@+id/btn_next"
             android:background="@drawable/sign_in_btn_bg"
             android:layout_alignParentRight="true"
