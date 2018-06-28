@@ -38,7 +38,7 @@ class Utilities : Constants {
                 VOILET -> mContext.setTheme(R.style.voiletTheme)
                 PURPLE -> mContext.setTheme(R.style.purpleTheme)
                 AMBER -> mContext.setTheme(R.style.amberTheme)
-                else -> mContext.setTheme(R.style.voiletTheme)
+                else -> mContext.setTheme(R.style.redTheme)
             }
         }
     }

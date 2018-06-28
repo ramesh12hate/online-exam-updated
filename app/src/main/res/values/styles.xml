@@ -59,9 +59,9 @@
     </style>
 
     <style name="redTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#B72519</item>
-        <item name="colorPrimaryDark">#be1b0e</item>
-        <item name="colorAccent">#c93b2f</item>
+        <item name="colorPrimary">#A9281B</item>
+        <item name="colorPrimaryDark">#94251A</item>
+        <item name="colorAccent">#A9281B</item>
         <item name="questionInnerBg">@color/colorPrimary</item>
         <item name="questionOuterBg">@color/colorPrimary</item>
     </style>

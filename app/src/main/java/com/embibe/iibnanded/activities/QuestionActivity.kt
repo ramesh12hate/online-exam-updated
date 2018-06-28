@@ -42,7 +42,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(AppPreferenceManager().getSingleInstance(this).getAppPrefs().getInt("theme", 1))
+//        setTheme(AppPreferenceManager().getSingleInstance(this).getAppPrefs().getInt("theme", 1))
         setContentView(R.layout.activity_question)
 
         toolbar.title = "Question Screen"

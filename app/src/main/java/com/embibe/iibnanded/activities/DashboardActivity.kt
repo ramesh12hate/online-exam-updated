@@ -45,7 +45,7 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Utilities.setTheme(this)
+//        Utilities.setTheme(this)
         setContentView(R.layout.activity_main)
         toolbar.title = "Home"
 
