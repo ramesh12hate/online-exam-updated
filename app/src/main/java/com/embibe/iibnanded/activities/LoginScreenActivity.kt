@@ -1,6 +1,5 @@
 package com.embibe.iibnanded.activities
 
-import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -13,22 +12,17 @@ import com.embibe.iibnanded.R
 import com.embibe.iibnanded.model.LoginModel
 import com.embibe.iibnanded.rest.ApiClient
 import com.embibe.iibnanded.rest.ApiInterface
+import com.embibe.iibnanded.util.AppPreferenceManager
+import com.embibe.iibnanded.util.Constants
 import com.embibe.iibnanded.util.Utilities
 import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.login.*
-
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.regex.Pattern
-import android.graphics.drawable.ColorDrawable
-import android.view.Window
-import android.view.Window.FEATURE_NO_TITLE
-
-
 
 
 class LoginScreenActivity : AppCompatActivity() {
@@ -110,6 +104,7 @@ class LoginScreenActivity : AppCompatActivity() {
 
                 when (response.body().responseCode) {
                     1 -> {
+                        AppPreferenceManager().getSingleInstance(this@LoginScreenActivity).getAppPrefs().edit().putBoolean(Constants.ISLOGGEDIN, true).apply()
                         startActivity<DashboardActivity>().apply {
                             finish()
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -117,6 +112,7 @@ class LoginScreenActivity : AppCompatActivity() {
                     }
 
                     2 -> {
+                        AppPreferenceManager().getSingleInstance(this@LoginScreenActivity).getAppPrefs().edit().putBoolean(Constants.ISLOGGEDIN, false).apply()
                         alert(responseMessage) {
                             title = "Alert"
                             positiveButton("OK") {
@@ -159,7 +155,6 @@ class LoginScreenActivity : AppCompatActivity() {
         else
             false
     }
-
 
 
 }

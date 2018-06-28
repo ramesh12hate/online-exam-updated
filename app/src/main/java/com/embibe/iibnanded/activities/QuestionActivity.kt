@@ -3,7 +3,6 @@ package com.embibe.iibnanded.activities
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
@@ -11,9 +10,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.*
-import android.widget.RelativeLayout
 import android.widget.ScrollView
-import android.widget.Toast
 import com.embibe.iibnanded.R
 import com.embibe.iibnanded.adapters.ItemClickListener
 import com.embibe.iibnanded.adapters.QuestionListAdapter
@@ -22,9 +19,9 @@ import com.embibe.iibnanded.model.QuestionModel
 import com.embibe.iibnanded.util.AppPreferenceManager
 
 import kotlinx.android.synthetic.main.activity_question.*
-import kotlinx.android.synthetic.main.question_item.*
 import kotlinx.android.synthetic.main.question_item.view.*
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.startActivity
 import java.util.concurrent.TimeUnit
 
 
@@ -36,6 +33,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
     private var layoutManager = true;
     private var prevStartTime: Long = 0
     private var prevPosition: Int = 0
+
     override fun onResume() {
         super.onResume()
         questionStatusChanged()
@@ -60,10 +58,9 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         object : CountDownTimer(200000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
-                tv_exam_duration.text = getString(R.string.time_remaining, String.format("%d min : %d Sec",
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))))
+                //Convert milliseconds into hour,minute and seconds
+                val hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisUntilFinished), TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)), TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
+                tv_exam_duration.text = hms
 
             }
 
@@ -131,8 +128,9 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
                 title = "Alert"
                 positiveButton("Yes") {
                     it.dismiss()
-                    finish()
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    startActivity<ChartViewActivity>().apply {
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
                 }
                 negativeButton("No") {
                     it.dismiss()
@@ -159,7 +157,7 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
             list[pager.currentItem].questionStatus = 2
             adapter.notifyItemChanged(pager.currentItem)
         }
-        list[prevPosition].questionTime = list[prevPosition].questionTime + (System.currentTimeMillis()- prevStartTime)
+        list[prevPosition].questionTime = list[prevPosition].questionTime + (System.currentTimeMillis() - prevStartTime)
         prevStartTime = System.currentTimeMillis()
         prevPosition = pager.currentItem
     }

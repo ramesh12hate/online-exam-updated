@@ -6,6 +6,7 @@ interface Constants {
         const val VOILET = 1
         const val AMBER = 3
         const val PURPLE = 2
+        const val ISLOGGEDIN = "ISLOGGEDIN"
     }
 
 }

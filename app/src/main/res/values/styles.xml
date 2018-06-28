@@ -58,6 +58,22 @@
         <item name="questionOuterBg">@color/colorPrimary</item>
     </style>
 
+    <style name="redTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#B72519</item>
+        <item name="colorPrimaryDark">#be1b0e</item>
+        <item name="colorAccent">#c93b2f</item>
+        <item name="questionInnerBg">@color/colorPrimary</item>
+        <item name="questionOuterBg">@color/colorPrimary</item>
+    </style>
+
+    <style name="blueTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#6CBAE5</item>
+        <item name="colorPrimaryDark">#539dc6</item>
+        <item name="colorAccent">#63a8ce</item>
+        <item name="questionInnerBg">@color/colorPrimary</item>
+        <item name="questionOuterBg">@color/colorPrimary</item>
+    </style>
+
     <style name="AlertDialogTheme" parent="android:Theme.DeviceDefault.Light.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogTitleText">Please wait…</item>

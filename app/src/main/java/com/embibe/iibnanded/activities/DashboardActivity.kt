@@ -24,6 +24,8 @@ import com.embibe.iibnanded.network.manager.IApiManager
 import com.embibe.iibnanded.network.model.GetDashboardInfo.GetDashboardInfoResp
 import com.embibe.iibnanded.network.utils.BaseResponse
 import com.embibe.iibnanded.network.utils.IResponsePublisher
+import com.embibe.iibnanded.util.AppPreferenceManager
+import com.embibe.iibnanded.util.Constants
 import com.embibe.iibnanded.util.Utilities
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -170,6 +172,7 @@ class DashboardActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, 
                     title = getString(R.string.alert)
                     positiveButton(getString(R.string.Yes)) {
                         it.dismiss()
+                        AppPreferenceManager().getSingleInstance(this@DashboardActivity).getAppPrefs().edit().putBoolean(Constants.ISLOGGEDIN, false).apply()
                         startActivity<LoginScreenActivity>().apply {
                             finish()
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryTransparency"
+    android:background="@drawable/screen_0"
     tools:context=".activities.SplashActivity">
 
     <ImageView
@@ -12,17 +12,14 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tv_app_name"
         android:layout_centerInParent="true"
-        android:contentDescription="@string/app_logo_goes_here"
-        />
+        android:contentDescription="@string/app_logo_goes_here" />
 
     <TextView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-
         android:gravity="center"
-        android:text="@string/embibe_helps_you_score_higher"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 
