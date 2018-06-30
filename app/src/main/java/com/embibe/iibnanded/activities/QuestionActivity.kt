@@ -11,12 +11,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.*
 import android.widget.ScrollView
+import android.widget.Toast
 import com.embibe.iibnanded.R
 import com.embibe.iibnanded.adapters.ItemClickListener
 import com.embibe.iibnanded.adapters.QuestionListAdapter
+import com.embibe.iibnanded.adapters.SubjectListAdapter
 import com.embibe.iibnanded.model.QuestionListModel
 import com.embibe.iibnanded.model.QuestionModel
-import com.embibe.iibnanded.util.AppPreferenceManager
+import com.embibe.iibnanded.model.SubjectModel
 
 import kotlinx.android.synthetic.main.activity_question.*
 import kotlinx.android.synthetic.main.question_item.view.*
@@ -33,6 +35,10 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
     private var layoutManager = true;
     private var prevStartTime: Long = 0
     private var prevPosition: Int = 0
+    private var mCustomPagerAdapterList = ArrayList<CustomPagerAdapter>()
+
+    private lateinit var adapterSubject: SubjectListAdapter
+    private var listSubject = ArrayList<SubjectModel>()
 
     override fun onResume() {
         super.onResume()
@@ -42,7 +48,6 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setTheme(AppPreferenceManager().getSingleInstance(this).getAppPrefs().getInt("theme", 1))
         setContentView(R.layout.activity_question)
 
         toolbar.title = "Question Screen"
@@ -52,8 +57,11 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         supportActionBar!!.setHomeButtonEnabled(true)
 
         addQuestions()
+        mCustomPagerAdapterList.add(CustomPagerAdapter(this, quesList))
+        mCustomPagerAdapterList.add(CustomPagerAdapter(this, quesList))
+        mCustomPagerAdapterList.add(CustomPagerAdapter(this, quesList))
 
-        pager.adapter = CustomPagerAdapter(this)
+        pager.adapter = CustomPagerAdapter(this, quesList)
 
         object : CountDownTimer(200000, 1000) {
 
@@ -82,7 +90,20 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
 
         adapter = QuestionListAdapter(null, this)
         adapter.setClickListener(this)
+
+        rv_subject_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        adapterSubject = SubjectListAdapter(null, this)
+        adapterSubject.setClickListener(itemClick)
+        rv_subject_list.adapter = adapterSubject
         rv_question_list.adapter = adapter
+
+        for (i in 0 until 3) {
+            val subjectModel = SubjectModel()
+            subjectModel.subjectName = "Math " + i
+            subjectModel.subjectId = i
+            listSubject.add(subjectModel)
+        }
+
 
         for (i in 0 until pager.adapter!!.count) {
             val questionListModel = QuestionListModel(i + 1, i + 1, 0)
@@ -187,21 +208,34 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
 
     private fun questionStatusChanged() {
         adapter.setData(list)
+        adapterSubject.setData(listSubject)
+        adapterSubject.notifyDataSetChanged()
         adapter.notifyDataSetChanged()
     }
 
     override fun onClick(view: View, position: Int) {
-        pager.currentItem = position
+            pager.currentItem = position
+    }
+
+    private var itemClick = object :  ItemClickListener {
+        override fun onClick(view: View, position: Int) {
+            pager.adapter = mCustomPagerAdapterList.get(position)
+            Toast.makeText(this@QuestionActivity, "Clicked "+ position, Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 
-    inner class CustomPagerAdapter(mContext: Context) : PagerAdapter() {
 
+
+    inner class CustomPagerAdapter(mContext: Context, questionList: ArrayList<QuestionModel>) : PagerAdapter() {
+
+        private var questionList = questionList;
 
         private var mLayoutInflater: LayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         override fun getCount(): Int {
-            return quesList.size
+            return questionList.size
         }
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -211,22 +245,22 @@ class QuestionActivity : AppCompatActivity(), ItemClickListener {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val itemView = mLayoutInflater.inflate(R.layout.question_item, container, false)
 
-            if (quesList[position].questionType == 1) {
+            if (questionList[position].questionType == 1) {
                 itemView.radioGroup1.visibility = View.VISIBLE
                 itemView.checkbox.visibility = View.GONE
-                itemView.radio1.text = quesList[position].optionA
-                itemView.radio2.text = quesList[position].optionB
-                itemView.radio3.text = quesList[position].optionC
-                itemView.radio4.text = quesList[position].optionD
+                itemView.radio1.text = questionList[position].optionA
+                itemView.radio2.text = questionList[position].optionB
+                itemView.radio3.text = questionList[position].optionC
+                itemView.radio4.text = questionList[position].optionD
             } else {
                 itemView.checkbox.visibility = View.VISIBLE
                 itemView.radioGroup1.visibility = View.GONE
-                itemView.checkbox1.text = quesList[position].optionA
-                itemView.checkbox2.text = quesList[position].optionB
-                itemView.checkbox3.text = quesList[position].optionC
-                itemView.checkbox4.text = quesList[position].optionD
+                itemView.checkbox1.text = questionList[position].optionA
+                itemView.checkbox2.text = questionList[position].optionB
+                itemView.checkbox3.text = questionList[position].optionC
+                itemView.checkbox4.text = questionList[position].optionD
             }
-            itemView.question.text = quesList[position].question
+            itemView.question.text = questionList[position].question
             container.addView(itemView)
             return itemView
         }
